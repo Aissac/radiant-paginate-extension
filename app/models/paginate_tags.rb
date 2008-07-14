@@ -68,7 +68,15 @@ module PaginateTags
   }
   tag 'paginate:pages' do |tag|
     renderer = RadiantLinkRenderer.new(tag)
-    will_paginate tag.locals.paginated_children, :renderer => renderer, :container => false
+    
+    options = {}
+    
+    [:class, :prev_label, :next_label, :inner_window, :outer_window, :separator].each do |a|
+      options[a] = tag.attr[a.to_s] unless tag.attr[a.to_s].blank?
+    end
+    options[:page_links] = false if 'false' == tag.attr['page_links']
+    
+    will_paginate tag.locals.paginated_children, options.merge(:renderer => renderer, :container => false)
   end
   
   private
