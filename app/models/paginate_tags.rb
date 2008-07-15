@@ -32,9 +32,10 @@ module PaginateTags
   tag 'paginate' do |tag|
     tag.locals.previous_headers = {}
     
+    parents = paginate_find_parent_pages(tag)
     options = paginate_find_options(tag)
     
-    paginated_children = tag.locals.page.children.paginate(options)
+    paginated_children = Page.paginate(options.merge(:conditions => ['pages.parent_id in (?)', parents]))
     tag.locals.paginated_children = paginated_children
     
     tag.expand
@@ -80,6 +81,19 @@ module PaginateTags
   end
   
   private
+    def paginate_find_parent_pages(tag)
+      attr = tag.attr.symbolize_keys
+      
+      level = (attr[:level] || '1').to_i
+      page = attr[:url] && Page.find_by_url(attr[:url]) || tag.locals.page
+      
+      if level == 2
+        page.children.map(&:id)
+      else
+        [page.id]
+      end
+    end
+  
     def paginate_find_options(tag)
       attr = tag.attr.symbolize_keys
       
