@@ -4,10 +4,10 @@
 class PaginateExtension < Radiant::Extension
   version "1.0"
   description "Pagination with will_paginate"
-  url "http://github.com/ihoka/radiant-paginate-extension"
+  url "http://github.com/Aissac/radiant-paginate-extension"
   
   def activate
-    PaginatePage
+    Page.send(:include, PaginatePageExtensions)
   end
   
   def deactivate
