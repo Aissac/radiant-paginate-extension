@@ -3,16 +3,20 @@ module PaginateTags
   include WillPaginate::ViewHelpers
   
   class RadiantLinkRenderer < WillPaginate::LinkRenderer
+    include ActionView::Helpers::TagHelper
+
     def initialize(tag)
       @tag = tag
     end
     
     def page_link(page, text, attributes = {})
-      %Q{<a href="#{@tag.locals.page.url}#{page}">#{text}</a>}
+      attributes = tag_options(attributes)
+      %Q{<a href="#{@tag.locals.page.url}#{page}"#{attributes}>#{text}</a>}
     end
 
     def page_span(page, text, attributes = {})
-      "<span class=\"page\">#{text}</span>"
+      attributes = tag_options(attributes)
+      "<span#{attributes}>#{text}</span>"
     end
   end
   
