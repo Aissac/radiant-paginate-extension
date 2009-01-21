@@ -8,7 +8,7 @@ module PaginateTags
     end
     
     def page_link(page, text, attributes = {})
-      %Q{<a href="#{@tag.locals.page.url}#{page}">#{text}</a>}
+      %Q{<a href="#{@tag.locals.page.url}page-#{page}">#{text}</a>}
     end
 
     def page_span(page, text, attributes = {})
@@ -99,7 +99,7 @@ module PaginateTags
       
       options = {}
       
-      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}(\d+)\/?$/, 1]
+      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}page-(\d+)\/?$/, 1]
       options[:per_page] = tag.attr['per_page'] || 10
       
       by = (attr[:by] || 'published_at').strip
