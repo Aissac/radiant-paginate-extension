@@ -65,6 +65,20 @@ module PaginateTags
   end
   
   desc %Q{
+    Expands when this is the first child in paginate:each
+  }
+  tag 'paginate:each:if_first' do |tag|
+    tag.expand if tag.locals.index == 0
+  end
+  
+  desc %Q{
+    Expands unless this is the first child in paginate:each
+  }
+  tag 'paginate:each:unless_first' do |tag|
+    tag.expand unless tag.locals.index == 0
+  end
+  
+  desc %Q{
     Renders pagination links with will_paginate.
   }
   tag 'paginate:pages' do |tag|
