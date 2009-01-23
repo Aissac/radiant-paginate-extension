@@ -56,9 +56,10 @@ module PaginateTags
   tag 'paginate:each' do |tag|
     result = []
     
-    tag.locals.paginated_children.each do |item|
+    tag.locals.paginated_children.each_with_index do |item, index|
       tag.locals.child = item
       tag.locals.page = item
+      tag.locals.index = index
       result << tag.expand
     end
     result
