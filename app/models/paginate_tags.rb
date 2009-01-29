@@ -11,7 +11,7 @@ module PaginateTags
     
     def page_link(page, text, attributes = {})
       attributes = tag_options(attributes)
-      %Q{<a href="#{@tag.locals.page.url}#{page}"#{attributes}>#{text}</a>}
+      %Q{<a href="#{@tag.locals.page.url}#{Radiant::Config['paginate.url_route']}#{page}"#{attributes}>#{text}</a>}
     end
 
     def page_span(page, text, attributes = {})
@@ -60,12 +60,27 @@ module PaginateTags
   tag 'paginate:each' do |tag|
     result = []
     
-    tag.locals.paginated_children.each do |item|
+    tag.locals.paginated_children.each_with_index do |item, index|
       tag.locals.child = item
       tag.locals.page = item
+      tag.locals.index = index
       result << tag.expand
     end
     result
+  end
+  
+  desc %Q{
+    Expands when this is the first child in paginate:each
+  }
+  tag 'paginate:each:if_first' do |tag|
+    tag.expand if tag.locals.index == 0
+  end
+  
+  desc %Q{
+    Expands unless this is the first child in paginate:each
+  }
+  tag 'paginate:each:unless_first' do |tag|
+    tag.expand unless tag.locals.index == 0
   end
   
   desc %Q{
@@ -103,7 +118,7 @@ module PaginateTags
       
       options = {}
       
-      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}(\d+)\/?$/, 1]
+      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}#{Regexp.quote(Radiant::Config['paginate.url_route'])}(\d+)\/?$/, 1]
       options[:per_page] = tag.attr['per_page'] || 10
       
       by = (attr[:by] || 'published_at').strip

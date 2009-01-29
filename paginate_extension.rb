@@ -7,6 +7,9 @@ class PaginateExtension < Radiant::Extension
   url "http://github.com/Aissac/radiant-paginate-extension"
   
   def activate
+    if ActiveRecord::Base.connection.tables.include?('config')
+      Radiant::Config['paginate.url_route'] = '' unless Radiant::Config['paginate.url_route']
+    end
     Page.send(:include, PaginatePageExtensions)
   end
   
