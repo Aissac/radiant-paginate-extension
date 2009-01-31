@@ -9,7 +9,7 @@ module PaginatePageExtensions
   def find_by_url_with_paginate(url, live = true, clean = true)
     url = clean_url(url) if clean
     
-    if url =~ %r{^#{ self.url }#{Radiant::Config['paginate.url_route']}\d+\/}
+    if url =~ %r{^#{ self.url }#{Radiant::Config['paginate.url_route']}\d+\/$}
       self
     else
       find_by_url_without_paginate(url, live, clean)

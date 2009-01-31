@@ -1,3 +1,5 @@
 = Radiant Paginate
 
-Uses will_paginate.
+This extension uses will_paginate to allow you to create a paginated list of pages.
+
+See HELP_admin.md for more details.
