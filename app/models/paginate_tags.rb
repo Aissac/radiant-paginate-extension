@@ -39,7 +39,7 @@ module PaginateTags
     parents = tag.locals.parent_ids || paginate_find_parent_pages(tag)
     options = paginate_find_options(tag)
     
-    paginated_children = Page.paginate(options.merge(:conditions => ["pages.parent_id in (?) AND virtual='f'", parents]))
+    paginated_children = Page.paginate(options.merge(:conditions => ["pages.parent_id in (?) AND virtual='f'", parents], :order => 'published_at DESC'))
     tag.locals.paginated_children = paginated_children
     
     tag.expand
