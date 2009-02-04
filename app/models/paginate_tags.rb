@@ -36,7 +36,7 @@ module PaginateTags
   tag 'paginate' do |tag|
     tag.locals.previous_headers = {}
     
-    parents = paginate_find_parent_pages(tag)
+    parents = tag.locals.parent_ids || paginate_find_parent_pages(tag)
     options = paginate_find_options(tag)
     
     paginated_children = Page.paginate(options.merge(:conditions => ["pages.parent_id in (?) AND virtual='f'", parents]))
@@ -118,7 +118,7 @@ module PaginateTags
       
       options = {}
       
-      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}#{Regexp.quote(Radiant::Config['paginate.url_route'])}(\d+)\/?$/, 1]
+      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}#{Regexp.quote(config['paginate.url_route'])}(\d+)\/?$/, 1]
       options[:per_page] = tag.attr['per_page'] || 10
       
       by = (attr[:by] || 'published_at').strip
