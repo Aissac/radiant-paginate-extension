@@ -17,3 +17,5 @@ Instead, you should set your `paginate.url_route` to something like
         /my_pages
     /my_pages/page-2
     /my_pages/page-3
+    
+You'll need to restart the application if you make changes to this setting.
