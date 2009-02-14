@@ -6,13 +6,12 @@ class PaginateExtension < Radiant::Extension
   description "Pagination with will_paginate"
   url "http://github.com/Aissac/radiant-paginate-extension"
   
-  @@url_cache = ''
-  cattr_accessor :url_cache
+  UrlCache = ''
   
   def activate
     if ActiveRecord::Base.connection.tables.include?('config')
       Radiant::Config['paginate.url_route'] = '' unless Radiant::Config['paginate.url_route']
-      url_cache = Radiant::Config['paginate.url_route']
+      PaginateExtension.const_set('UrlCache', Radiant::Config['paginate.url_route'])
     end
     Page.send(:include, PaginatePageExtensions)
   end
