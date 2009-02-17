@@ -12,7 +12,7 @@ module PaginateTags
     def page_link(page, text, attributes = {})
       attributes = tag_options(attributes)
       @paginate_url_route = @paginate_url_route.blank? ? PaginateExtension::UrlCache : @paginate_url_route
-      %Q{<a href="#{@tag.locals.page.url}#{paginate_url_route}#{page}"#{attributes}>#{text}</a>}
+      %Q{<a href="#{@tag.locals.page.url}#{@paginate_url_route}#{page}"#{attributes}>#{text}</a>}
     end
 
     def page_span(page, text, attributes = {})
