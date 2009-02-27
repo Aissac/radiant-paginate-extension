@@ -14,6 +14,10 @@ module PaginateTags
       @paginate_url_route = @paginate_url_route.blank? ? PaginateExtension::UrlCache : @paginate_url_route
       %Q{<a href="#{@tag.locals.page.url}#{@paginate_url_route}#{page}"#{attributes}>#{text}</a>}
     end
+    
+    def gap_marker
+      '<span class="gap">&#8230;</span>'
+    end
 
     def page_span(page, text, attributes = {})
       attributes = tag_options(attributes)
