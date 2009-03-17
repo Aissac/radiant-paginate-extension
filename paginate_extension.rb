@@ -6,8 +6,6 @@ class PaginateExtension < Radiant::Extension
   description "Pagination with will_paginate"
   url "http://github.com/Aissac/radiant-paginate-extension"
   
-  UrlCache = ''
-  
   def activate 
     if Radiant::Config.table_exists?
       Radiant::Config['paginate.url_route'] = '' unless Radiant::Config['paginate.url_route']
