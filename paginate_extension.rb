@@ -8,8 +8,8 @@ class PaginateExtension < Radiant::Extension
   
   UrlCache = ''
   
-  def activate
-    if ActiveRecord::Base.connection.tables.include?('config')
+  def activate 
+    if Radiant::Config.table_exists?
       Radiant::Config['paginate.url_route'] = '' unless Radiant::Config['paginate.url_route']
       PaginateExtension.const_set('UrlCache', Radiant::Config['paginate.url_route'])
     end
