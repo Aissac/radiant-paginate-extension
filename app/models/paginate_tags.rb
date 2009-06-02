@@ -96,12 +96,13 @@ module PaginateTags
     
     options = {}
     
-    [:class, :prev_label, :next_label, :inner_window, :outer_window, :separator].each do |a|
+    [:id, :class, :prev_label, :next_label, :inner_window, :outer_window, :separator].each do |a|
       options[a] = tag.attr[a.to_s] unless tag.attr[a.to_s].blank?
     end
     options[:page_links] = false if 'false' == tag.attr['page_links']
+    options[:container]  = false if 'false' == tag.attr['container']
     
-    will_paginate tag.locals.paginated_children, options.merge(:renderer => renderer, :container => false)
+    will_paginate tag.locals.paginated_children, options.merge(:renderer => renderer)
   end
   
   private
