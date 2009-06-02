@@ -123,7 +123,7 @@ module PaginateTags
       
       options = {}
       
-      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}#{Regexp.quote(config['paginate.url_route'])}(\d+)\/?$/, 1]
+      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}#{Regexp.quote(Radiant::Config['paginate.url_route'])}(\d+)\/?$/, 1]
       options[:per_page] = tag.attr['per_page'] || 10
       
       by = (attr[:by] || 'published_at').strip
