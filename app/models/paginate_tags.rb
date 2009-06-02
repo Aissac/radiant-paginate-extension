@@ -28,9 +28,9 @@ module PaginateTags
   desc %Q{
     Wrapper for pagination content. <r:paginate:each> and <r:paginate:pages> must be nested inside.
     
-    Usage:
-    <pre><code>
-    <r:paginate [per_page="10"] [order="asc|desc"] [by="attribute"]>
+    *Usage:*
+    
+    <pre><code><r:paginate [per_page="10"] [order="asc|desc"] [by="attribute"]>
       ...
       <r:each>...</r:each>
       ...
@@ -53,9 +53,9 @@ module PaginateTags
   desc %Q{
     Renders nested content for each child of current page. Must be placed inside <r:paginate>
     
-    Usage:
-    <pre><code>
-    <r:paginate>
+    *Usage:*
+    
+    <pre><code><r:paginate>
       <r:each>
         <r:link />
       </r:each>
@@ -90,6 +90,26 @@ module PaginateTags
   
   desc %Q{
     Renders pagination links with will_paginate.
+    The following optional attributes may be controlled:
+    
+    * id - the id to apply to the containing @<div>@
+    * class - the class to apply to the containing @<div>@
+    * prev_label - default: "« Previous"
+    * next_label - default: "Next »"
+    * inner_window - how many links are shown around the current page (default: 4)
+    * outer_window - how many links are around the first and the last page (default: 1)
+    * separator - string separator for page HTML elements (default: single space)
+    * page_links - when false, only previous/next links are rendered (default: true)
+    * container - when false, pagination links are not wrapped in a containing @<div>@ (default: true)
+    
+    *Usage:*
+    
+    <pre><code><r:paginate>
+      <r:pages [id=""] [class="pagination"] [prev_label="&laquo; Previous"]
+      [next_label="Next &raquo;"] [inner_window="4"] [outer_window="1"]
+      [separator=" "] [page_links="true"] [container="true"]/>
+    </r:paginate>
+    </code></pre>
   }
   tag 'paginate:pages' do |tag|
     renderer = RadiantLinkRenderer.new(tag)
