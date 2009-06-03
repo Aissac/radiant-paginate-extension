@@ -1,6 +1,0 @@
-= Radiant Paginate
-
-This extension uses will_paginate to allow you to create a paginated list of pages.
-You must provide the will_paginate gem or plugin; it is not bundled with this extension.
-
-See HELP_admin.md for more details.
