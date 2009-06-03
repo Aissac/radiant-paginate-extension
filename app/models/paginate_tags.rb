@@ -11,7 +11,12 @@ module PaginateTags
     
     def page_link(page, text, attributes = {})
       attributes = tag_options(attributes)
-      %Q{<a href="#{@tag.locals.page.url}#{page}"#{attributes}>#{text}</a>}
+      @paginate_url_route = @paginate_url_route.blank? ? PaginateExtension::UrlCache : @paginate_url_route
+      %Q{<a href="#{@tag.locals.page.url}#{@paginate_url_route}#{page}"#{attributes}>#{text}</a>}
+    end
+    
+    def gap_marker
+      '<span class="gap">&#8230;</span>'
     end
 
     def page_span(page, text, attributes = {})
@@ -23,9 +28,9 @@ module PaginateTags
   desc %Q{
     Wrapper for pagination content. <r:paginate:each> and <r:paginate:pages> must be nested inside.
     
-    Usage:
-    <pre><code>
-    <r:paginate [per_page="10"] [order="asc|desc"] [by="attribute"]>
+    *Usage:*
+    
+    <pre><code><r:paginate [per_page="10"] [order="asc|desc"] [by="attribute"]>
       ...
       <r:each>...</r:each>
       ...
@@ -36,10 +41,10 @@ module PaginateTags
   tag 'paginate' do |tag|
     tag.locals.previous_headers = {}
     
-    parents = paginate_find_parent_pages(tag)
+    parents = tag.locals.parent_ids || paginate_find_parent_pages(tag)
     options = paginate_find_options(tag)
     
-    paginated_children = Page.paginate(options.merge(:conditions => ["pages.parent_id in (?) AND virtual='f'", parents]))
+    paginated_children = Page.paginate(options.merge(:conditions => ["pages.parent_id in (?) AND virtual = ? and status_id = ?", parents,false,100], :order => 'published_at DESC'))
     tag.locals.paginated_children = paginated_children
     
     tag.expand
@@ -48,9 +53,9 @@ module PaginateTags
   desc %Q{
     Renders nested content for each child of current page. Must be placed inside <r:paginate>
     
-    Usage:
-    <pre><code>
-    <r:paginate>
+    *Usage:*
+    
+    <pre><code><r:paginate>
       <r:each>
         <r:link />
       </r:each>
@@ -85,18 +90,39 @@ module PaginateTags
   
   desc %Q{
     Renders pagination links with will_paginate.
+    The following optional attributes may be controlled:
+    
+    * id - the id to apply to the containing @<div>@
+    * class - the class to apply to the containing @<div>@
+    * prev_label - default: "« Previous"
+    * next_label - default: "Next »"
+    * inner_window - how many links are shown around the current page (default: 4)
+    * outer_window - how many links are around the first and the last page (default: 1)
+    * separator - string separator for page HTML elements (default: single space)
+    * page_links - when false, only previous/next links are rendered (default: true)
+    * container - when false, pagination links are not wrapped in a containing @<div>@ (default: true)
+    
+    *Usage:*
+    
+    <pre><code><r:paginate>
+      <r:pages [id=""] [class="pagination"] [prev_label="&laquo; Previous"]
+      [next_label="Next &raquo;"] [inner_window="4"] [outer_window="1"]
+      [separator=" "] [page_links="true"] [container="true"]/>
+    </r:paginate>
+    </code></pre>
   }
   tag 'paginate:pages' do |tag|
     renderer = RadiantLinkRenderer.new(tag)
     
     options = {}
     
-    [:class, :prev_label, :next_label, :inner_window, :outer_window, :separator].each do |a|
+    [:id, :class, :prev_label, :next_label, :inner_window, :outer_window, :separator].each do |a|
       options[a] = tag.attr[a.to_s] unless tag.attr[a.to_s].blank?
     end
     options[:page_links] = false if 'false' == tag.attr['page_links']
+    options[:container]  = false if 'false' == tag.attr['container']
     
-    will_paginate tag.locals.paginated_children, options.merge(:renderer => renderer, :container => false)
+    will_paginate tag.locals.paginated_children, options.merge(:renderer => renderer)
   end
   
   private
@@ -118,7 +144,7 @@ module PaginateTags
       
       options = {}
       
-      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}(\d+)\/?$/, 1]
+      options[:page] = tag.attr['page'] || @request.path[/^#{Regexp.quote(tag.locals.page.url)}#{Regexp.quote(PaginateExtension::UrlCache)}(\d+)\/?$/, 1]
       options[:per_page] = tag.attr['per_page'] || 10
       
       by = (attr[:by] || 'published_at').strip
