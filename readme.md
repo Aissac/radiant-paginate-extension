@@ -5,9 +5,6 @@ About
 ---
 An extension by [Aissac][ai] that provides pagination support to [Radiant CMS][rd].
 
-Features
----
-
 Installation
 ---
 
