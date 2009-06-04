@@ -35,8 +35,7 @@ module PaginateTags
       <r:each>...</r:each>
       ...
       <r:pages />
-    </r:paginate>
-    </code></pre>
+    </r:paginate></code></pre>
   }
   tag 'paginate' do |tag|
     tag.locals.previous_headers = {}
@@ -55,7 +54,7 @@ module PaginateTags
     
     *Usage:*
     
-    <pre><code><r:paginate>
+    <pre><code><r:paginate [per_page="10"] [order="asc|desc"] [by="attribute"]>
       <r:each>
         <r:link />
       </r:each>
@@ -100,14 +99,13 @@ module PaginateTags
     * outer_window - how many links are around the first and the last page (default: 1)
     * separator - string separator for page HTML elements (default: single space)
     * page_links - when false, only previous/next links are rendered (default: true)
-    * container - when false, pagination links are not wrapped in a containing @<div>@ (default: true)
     
     *Usage:*
     
     <pre><code><r:paginate>
       <r:pages [id=""] [class="pagination"] [prev_label="&laquo; Previous"]
       [next_label="Next &raquo;"] [inner_window="4"] [outer_window="1"]
-      [separator=" "] [page_links="true"] [container="true"]/>
+      [separator=" "] [page_links="true"]/>
     </r:paginate>
     </code></pre>
   }
