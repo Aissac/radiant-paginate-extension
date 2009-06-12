@@ -11,6 +11,7 @@ Features
 ---
 
 Uses will_paginate plugin to iterate over children of a Page with pagination options:
+
 * Specify number children per page
 * Ordering by a specific page attribute and order direction
 * Conditionally render content for first page
