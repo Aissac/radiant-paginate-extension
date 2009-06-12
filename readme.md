@@ -7,6 +7,15 @@ An extension by [Aissac][ai] that provides pagination support to [Radiant CMS][r
 
 Tested on Radiant 0.7.1 and 0.8.
 
+Features
+---
+
+Uses will_paginate plugin to iterate over children of a Page with pagination options:
+* Specify number children per page
+* Ordering by a specific page attribute and order direction
+* Conditionally render content for first page
+* Render pagination links customizable from the Radius tag (specify next/prev label, DOM class, inner and outer window etc.)
+
 Installation
 ---
 
