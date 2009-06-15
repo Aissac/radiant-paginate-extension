@@ -26,7 +26,7 @@ module PaginateTags
   end
   
   desc %Q{
-    Wrapper for pagination content. <r:paginate:each> and <r:paginate:pages> must be nested inside.
+    Wrapper for pagination content. @<r:paginate:each>@ and @<r:paginate:pages>@ must be nested inside.
     
     *Usage:*
     
@@ -50,7 +50,7 @@ module PaginateTags
   end
   
   desc %Q{
-    Renders nested content for each child of current page. Must be placed inside <r:paginate>
+    Renders nested content for each child of current page. Must be placed inside @<r:paginate>@
     
     *Usage:*
     
