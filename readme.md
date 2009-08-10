@@ -32,7 +32,7 @@ or
 Then install the [Radiant Paginate Extension][rpe]:
 
     git submodule add git://github.com/Aissac/radiant-paginate-extension.git\
-      vendor/plugins/paginate
+      vendor/extensions/paginate
 
 Configuration
 ---
