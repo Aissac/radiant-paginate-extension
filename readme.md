@@ -51,7 +51,7 @@ Usage
 Contributors
 ---
 
-* Istan Hoka
+* Istvan Hoka
 * Benny Degezelle
 * Jim Gay
 * Andrew Neil
