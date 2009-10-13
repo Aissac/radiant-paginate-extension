@@ -4,7 +4,7 @@
 class PaginateExtension < Radiant::Extension
   version "1.0"
   description "Pagination with will_paginate"
-  url "http://github.com/Aissac/radiant-paginate-extension"
+  url "http://blog.aissac.ro/radiant/paginate-extension/"
   
   def activate 
     if Radiant::Config.table_exists?

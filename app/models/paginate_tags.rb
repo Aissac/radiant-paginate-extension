@@ -103,8 +103,10 @@ module PaginateTags
     *Usage:*
     
     <pre><code><r:paginate>
-      <r:pages [id=""] [class="pagination"] [prev_label="&laquo; Previous"]
-      [next_label="Next &raquo;"] [inner_window="4"] [outer_window="1"]
+      <r:pages [id=""] [class="pagination"] 
+      [prev_label="&laquo; Previous"] 
+      [next_label="Next &raquo;"] 
+      [inner_window="4"] [outer_window="1"]
       [separator=" "] [page_links="true"]/>
     </r:paginate>
     </code></pre>

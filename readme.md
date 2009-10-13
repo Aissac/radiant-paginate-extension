@@ -5,7 +5,7 @@ About
 ---
 An extension by [Aissac][ai] that provides pagination support to [Radiant CMS][rd].
 
-Tested on Radiant 0.7.1 and 0.8.
+Tested on Radiant 0.7.1, 0.8 and 0.9 RC1
 
 Features
 ---
