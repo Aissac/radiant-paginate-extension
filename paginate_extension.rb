@@ -11,6 +11,7 @@ class PaginateExtension < Radiant::Extension
       Radiant::Config['paginate.url_route'] = '' unless Radiant::Config['paginate.url_route']
       PaginateExtension.const_set('UrlCache', Radiant::Config['paginate.url_route'])
     end
+    Page.send(:include, PaginateTags)
     Page.send(:include, PaginatePageExtensions)
   end
   

@@ -1,6 +1,5 @@
 module PaginatePageExtensions
   def self.included(base)
-    base.send(:include, PaginateTags)
     base.class_eval do
       alias_method_chain :find_by_url, :paginate
     end
