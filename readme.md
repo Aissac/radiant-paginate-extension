@@ -22,8 +22,7 @@ Installation
 
 The [Radiant Paginate Extension][rpe] has one dependency: the 'will_paginate' gem/plugin
 
-    git submodule add git://github.com/mislav/will_paginate.git\
-      vendor/plugins/will_paginate
+    git clone git://github.com/mislav/will_paginate.git vendor/plugins/will_paginate
     
 or
 
@@ -31,12 +30,13 @@ or
 
 Then install the [Radiant Paginate Extension][rpe]:
 
-    git submodule add git://github.com/Aissac/radiant-paginate-extension.git\
-      vendor/extensions/paginate
+    git clone git://github.com/Aissac/radiant-paginate-extension.git vendor/extensions/paginate
 
 Configuration
 ---
 Because the archived pages urls may not be processed properly, it is recommended to set `Radiant::Config['paginate.url_route']` to something like `page-`
+
+    Radiant['paginate.url_route'] = 'page-'
 
 Usage
 ---
@@ -51,13 +51,15 @@ Usage
 Contributors
 ---
 
-* Istvan Hoka
+* Istvan Hoka ([@ihoka][ih])
 * Benny Degezelle
 * Jim Gay
 * Andrew Neil
 * Michael Kessler
-* Cristi Duma
+* Cristi Duma ([@cristi_duma][cd])
 
 [ai]: http://www.aissac.ro/
 [rd]: http://radiantcms.org/
 [rpe]: http://blog.aissac.ro/radiant/paginate-extension/
+[cd]: http://twitter.com/cristi_duma
+[ih]: http://twitter.com/ihoka

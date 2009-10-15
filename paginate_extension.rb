@@ -1,6 +1,3 @@
-# Uncomment this if you reference any of your controllers in activate
-# require_dependency 'application'
-
 class PaginateExtension < Radiant::Extension
   version "1.0"
   description "Pagination with will_paginate"
@@ -17,5 +14,4 @@ class PaginateExtension < Radiant::Extension
   
   def deactivate
   end
-  
 end
